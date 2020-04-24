@@ -13,6 +13,7 @@ import "./CreateProblem.css";
 import PropTypes from "prop-types";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
+import {connect} from "react-redux";
 
 const CreateProblem = (props) => {
   return (
@@ -50,4 +51,4 @@ CreateProblem.propTypes = {
   go: PropTypes.func.isRequired,
 };
 
-export default CreateProblem;
+export default connect(null)(CreateProblem);

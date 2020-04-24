@@ -15,9 +15,11 @@ import Progress from "@vkontakte/vkui/dist/components/Progress/Progress";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
 import "./Home.css";
+import {connect} from "react-redux";
+import {changeActivePanel} from "../actions/actions";
 
 
-const Home = ({id, go, fetchedUser}) => (
+const Home = ({id, go, fetchedUser, dispatch}) => (
   <Panel id={id}>
     <PanelHeader>Информация</PanelHeader>
     {fetchedUser &&
@@ -52,7 +54,7 @@ const Home = ({id, go, fetchedUser}) => (
       </List>
     </Group>
     <Div className="ux-home__footer">
-      <Button onClick={() => go("createProblem")}>
+      <Button onClick={() => dispatch(changeActivePanel("createProblem"))}>
         Создать объявление
       </Button>
       <Button className="ux-home__find-work-button"
@@ -76,4 +78,4 @@ Home.propTypes = {
   }),
 };
 
-export default Home;
+export default connect(null)(Home);
