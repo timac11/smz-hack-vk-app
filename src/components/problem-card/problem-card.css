@@ -1,0 +1,26 @@
+.ux-problem-card__item {
+    display: flex;
+    justify-content: space-between;
+    height: 180px;
+    border: grey solid 1px;
+    border-radius: 8px;
+    background: white;
+}
+
+.ux-problem-card__info-photo {
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.ux-problem-card__info-main {
+    flex-grow: 1;
+    flex-wrap: wrap;
+    overflow: hidden;
+    white-space: normal;
+}
+
+.ux-problem-card__info-rate {
+    padding-top: 12px;
+    width: 100px;
+    flex-shrink: 0;
+}

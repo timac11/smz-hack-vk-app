@@ -1,0 +1,8 @@
+.ux-home__footer {
+    display: flex;
+    flex-direction: column;
+}
+
+.ux-home__find-work-button {
+    margin-top: 16px;
+}
