@@ -3,16 +3,17 @@ import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader
 import List from "@vkontakte/vkui/dist/components/List/List";
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
 import {Cell} from "@vkontakte/vkui";
-import Div from "@vkontakte/vkui/dist/components/Div/Div";
-import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
 
 import "./Problems.css";
 import ProblemCard from "../components/problem-card/problem-card";
+import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
 
 const Problems = ({id, go, fetchedUser}) => {
   return (
     <Panel id={id}>
-      <PanelHeader>Список доступных задач</PanelHeader>
+      <PanelHeader left={<PanelHeaderBack onClick={() =>  go("home")} />}>
+        Спиок доступных задач
+      </PanelHeader>
       <List>
         <Cell className="ux-problems__main-cell">
           {fetchedUser && <ProblemCard photo={fetchedUser.photo_200}

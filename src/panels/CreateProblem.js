@@ -6,12 +6,20 @@ import FormLayoutGroup from "@vkontakte/vkui/dist/components/FormLayoutGroup/For
 import Input from "@vkontakte/vkui/dist/components/Input/Input";
 import Select from "@vkontakte/vkui/dist/components/Select/Select";
 import Textarea from "@vkontakte/vkui/dist/components/Textarea/Textarea";
+import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
+import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
 
 import "./CreateProblem.css";
+import PropTypes from "prop-types";
+import Div from "@vkontakte/vkui/dist/components/Div/Div";
+import Button from "@vkontakte/vkui/dist/components/Button/Button";
 
 const CreateProblem = (props) => {
   return (
     <Panel id={props.id}>
+      <PanelHeader left={<PanelHeaderBack onClick={() =>  props.go("home")} />}>
+        Создать объявление
+      </PanelHeader>
       <FormLayout>
         <FormStatus header="Некорректно введены данные" hidden={"error" === "default"} mode={"error"}>
           Необходимо заполнить все поля
@@ -30,8 +38,16 @@ const CreateProblem = (props) => {
           </Select>
         </FormLayoutGroup>
       </FormLayout>
+      <Div>
+        <Button size="xl">Создать объявление</Button>
+      </Div>
     </Panel>
   );
+};
+
+CreateProblem.propTypes = {
+  id: PropTypes.string.isRequired,
+  go: PropTypes.func.isRequired,
 };
 
 export default CreateProblem;
