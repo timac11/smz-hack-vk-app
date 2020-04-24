@@ -14,11 +14,12 @@ import PropTypes from "prop-types";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import {connect} from "react-redux";
+import {changeActivePanel} from "../actions/actions";
 
 const CreateProblem = (props) => {
   return (
     <Panel id={props.id}>
-      <PanelHeader left={<PanelHeaderBack onClick={() =>  props.go("home")} />}>
+      <PanelHeader left={<PanelHeaderBack onClick={() =>  props.dispatch(changeActivePanel("home"))} />}>
         Создать объявление
       </PanelHeader>
       <FormLayout>

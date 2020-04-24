@@ -7,11 +7,13 @@ import {Cell} from "@vkontakte/vkui";
 import "./Problems.css";
 import ProblemCard from "../components/problem-card/problem-card";
 import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
+import {changeActivePanel} from "../actions/actions";
+import {connect} from "react-redux";
 
-const Problems = ({id, go, fetchedUser}) => {
+const Problems = ({id, go, fetchedUser, dispatch}) => {
   return (
     <Panel id={id}>
-      <PanelHeader left={<PanelHeaderBack onClick={() =>  go("home")} />}>
+      <PanelHeader left={<PanelHeaderBack onClick={() =>  dispatch(changeActivePanel("home"))} />}>
         Спиок доступных задач
       </PanelHeader>
       <List>
@@ -46,4 +48,4 @@ const Problems = ({id, go, fetchedUser}) => {
     </Panel>)
 }
 
-export default Problems;
+export default connect(null)(Problems);
