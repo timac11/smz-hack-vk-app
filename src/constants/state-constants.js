@@ -1,2 +1,3 @@
 export const ACTIVE_PANEL_CHANGE = 'ACTIVE_PANEL_CHANGE';
 export const USER_FETCHED = 'USER_FETCHED';
+export const AUTHORIZE = 'AUTHORIZE';
