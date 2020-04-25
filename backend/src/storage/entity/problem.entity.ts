@@ -21,6 +21,9 @@ export class Problem {
   @ManyToOne(type => User)
   public responsible: User;
 
+  @Column({default: "init"})
+  public status: string;
+
   @Column()
   public dueDate: Date;
 

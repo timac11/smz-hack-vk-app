@@ -62,6 +62,37 @@ export function fetchAllProblems() {
   }
 }
 
+export function fetchAllAvailableExecutorProblems() {
+  return (dispatch, getState) => {
+    return get(`get-all-problems`)
+      .then((result) => {
+        dispatch(problemsWereFetched(result.data.filter(item => item.author.id !== getState().user.loginedUser.id)));
+        console.log(result);
+      })
+  }
+}
+
+export function fetchAllProgressExecutorProblems() {
+  return (dispatch, getState) => {
+    return get(`get-all-problems`)
+      .then((result) => {
+        dispatch(problemsWereFetched(result.data.filter(item => item.responsible && item.responsible.id === getState().user.loginedUser.id)));
+        console.log(result);
+      })
+  }
+}
+
+export function toBeResponsibleForProblem() {
+  return (dispatch, getState) => {
+    return post("problem/to-be-responsible", {
+      userId: getState().user.loginedUser.id,
+      problemId: getState().problems.currentProblem.id
+    }).then((result) => {
+      dispatch(currentProblemWasLoaded(result.data))
+    })
+  }
+}
+
 export function fetchCurrentProblem(id) {
   return (dispatch, getState) => {
     return get(`get-problem/${id}`)

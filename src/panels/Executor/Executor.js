@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
 import PanelHeader from '@vkontakte/vkui/dist/components/PanelHeader/PanelHeader';
@@ -8,18 +8,39 @@ import Header from "@vkontakte/vkui/dist/components/Header/Header";
 import List from "@vkontakte/vkui/dist/components/List/List";
 import InfoRow from "@vkontakte/vkui/dist/components/InfoRow/InfoRow";
 
-import Competentions from "../components/competitions/competentions";
+import Competentions from "../../components/competitions/competentions";
 import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import Progress from "@vkontakte/vkui/dist/components/Progress/Progress";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
-import "./Home.css";
+import "../Customer/Home.css";
 import {connect} from "react-redux";
-import {changeActivePanel, fetchAllProblems} from "../actions/actions";
+import {
+  fetchAllAvailableExecutorProblems,
+  fetchAllProblems,
+  fetchAllProgressExecutorProblems
+} from "../../actions/actions";
+import Checkbox from "@vkontakte/vkui/dist/components/Checkbox/Checkbox";
+import {competentions} from "../../constants/state-constants";
 
-const Executor = ({id, go, loginedUser, dispatch}) => (
-  <Panel id={id}>
+import "./Executor.css";
+
+export const myCompetitions = [
+  {
+    id: "Маникюр",
+    name: "Маникюр"
+  },
+  {
+    id: "Парикхмахер",
+    name: "Парикхмахер",
+  }
+]
+
+const Executor = ({id, go, loginedUser, dispatch}) => {
+  const [edit, setEdit] = useState(false);
+
+  return <Panel id={id}>
     <PanelHeader>Кабинет исполнителя</PanelHeader>
     {loginedUser &&
     <Group title="User Data Fetched with VK Bridge">
@@ -35,13 +56,25 @@ const Executor = ({id, go, loginedUser, dispatch}) => (
       <List>
         <Cell>
           <InfoRow header="Мои компетенции">
-            <Competentions data={loginedUser.comptitions}/>
-            <Button>Добавить</Button>
+            {
+              !edit ?
+                <>
+                  <Competentions data={myCompetitions.map(item => item.name)}/>
+                  <Button onClick={() => setEdit(true)}>Добавить</Button>
+                </> :
+                <>
+                  <Div className="ux-executor__checkboxes-container">
+                    {competentions.map(item => <Checkbox
+                      className="ux-executor__checkboxes-container-item">{item.name}</Checkbox>)}
+                  </Div>
+                  <Button onClick={() => setEdit(false)}>Сохранить</Button>
+                </>
+            }
           </InfoRow>
         </Cell>
         <Cell>
           <InfoRow header="ИНН">
-            {loginedUser.inn}
+            {loginedUser.inn || <Button>Зарегистрироваться</Button>}
           </InfoRow>
         </Cell>
         <Cell>
@@ -58,18 +91,19 @@ const Executor = ({id, go, loginedUser, dispatch}) => (
       </List>
     </Group>
     <Div className="ux-home__footer">
-      <Button size="xl"
-              onClick={() => dispatch(changeActivePanel("createProblem"))}>
-        Создать объявление
+      <Button className="ux-home__find-work-button"
+              size="xl"
+              onClick={() => dispatch(fetchAllAvailableExecutorProblems()) && go("executorProblems")}>
+        Поиск работы
       </Button>
       <Button className="ux-home__find-work-button"
               size="xl"
-              onClick={() => dispatch(fetchAllProblems()) && go("problems")}>
-        Посмотреть список объявлений
+              onClick={() => dispatch(fetchAllProgressExecutorProblems()) && go("progressExecutorProblems")}>
+        Мои текущие задачи
       </Button>
     </Div>
   </Panel>
-);
+};
 
 Executor.propTypes = {
   id: PropTypes.string.isRequired,

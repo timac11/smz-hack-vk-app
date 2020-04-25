@@ -50,6 +50,11 @@ export class AppController {
     return this.problemsService.findProblemById(params.id);
   }
 
+  @Post("problem/to-be-responsible")
+  async toBeResponsible(@Request() req) {
+    return this.problemsService.toBeReResponsible(req.body.problemId, req.body.userId);
+  }
+
   // USER /////////////////////////////////////////////
   @Post("authorize")
   async authorize(@Request() req) {

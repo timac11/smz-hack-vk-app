@@ -38,6 +38,13 @@ export class ProblemService {
     })
   }
 
+  public async toBeReResponsible(problemId: string, userId: string): Promise<Problem> {
+    const user = await this.userRepository.findOne({id: userId});
+    const problem = await this.findProblemById(problemId);
+    problem.responsible = user;
+    return  await this.problemRepository.save(problem);
+  }
+
   public async findProblemById(id: string): Promise<Problem> {
     return await this.problemRepository.findOne({id});
   }

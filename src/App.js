@@ -4,14 +4,17 @@ import View from '@vkontakte/vkui/dist/components/View/View';
 import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner';
 import '@vkontakte/vkui/dist/vkui.css';
 
-import Executor from './panels/Executor';
-import Problems from "./panels/Problems";
-import CreateProblem from "./panels/CreateProblem";
+import Executor from './panels/Executor/Executor';
+import Problems from "./panels/Customer/CustomerProblems";
+import CreateProblem from "./panels/Customer/CreateProblem";
 import {connect} from "react-redux";
 import {changeActivePanel, userFetched} from "./actions/actions";
 import EnterPage from "./panels/EnterPage";
-import Customer from "./panels/Customer";
-import CurrentProblem from "./panels/CurrentProblem";
+import Customer from "./panels/Customer/Customer";
+import ExecutorProblems from "./panels/Executor/ExecutorProblems";
+import CurrentCustomerProblem from "./panels/Customer/CurrentCustomerProblem";
+import CurrentExecutorProblem from "./panels/Executor/CurrentExecutorProblem";
+import ProgressExecutorProblems from "./panels/Executor/ProgressExecutorProblems";
 
 const App = (props) => {
   const [popout, setPopout] = useState(<ScreenSpinner size='large'/>);
@@ -42,8 +45,11 @@ const App = (props) => {
     <View activePanel={props.activePanel} popout={popout}>
       <EnterPage id="enterPage"/>
       <Executor id='executor' fetchedUser={props.user} go={go}/>
+      <ExecutorProblems id='executorProblems'/>
+      <CurrentExecutorProblem id='currentExecutorProblem'/>
+      <ProgressExecutorProblems id='progressExecutorProblems'/>
       <Customer id='customer' fetchedUser={props.user} go={go}/>
-      <CurrentProblem id='currentProblem'/>
+      <CurrentCustomerProblem id='currentCustomerProblem'/>
       <CreateProblem id='createProblem' go={go}/>
       <Problems id='problems' fetchedUser={props.user} go={go}/>
     </View>

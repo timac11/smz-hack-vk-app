@@ -12,43 +12,18 @@ import InfoRow from "@vkontakte/vkui/dist/components/InfoRow/InfoRow";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import {connect} from "react-redux";
 import {changeActivePanel, fetchCurrentProblem} from "../../actions/actions";
+import ProblemCardParams from "../problem-card-params/problem-card-params";
 
 const ProblemCard = (props) => {
   return (
     <Div className="ux-problem-card__item-container">
-      <Div className="ux-problem-card__item">
-        <Div className="ux-problem-card__info-photo">
-          <Avatar src={props.photo}/>
-          <span>
-            {props.user.name}
-          </span>
-          <span>
-             {props.user.surname}
-          </span>
-        </Div>
-        <div className="ux-problem-card__info-main">
-          <Group header={<Header mode="secondary">Описание</Header>}>
-            <Div>
-              {props.description}
-            </Div>
-          </Group>
-        </div>
-        <div className="ux-problem-card__info-rate">
-          <InfoRow header="Рейтинг">
-            {props.rate}
-          </InfoRow>
-          <InfoRow header="Цена">
-            {props.cost}
-          </InfoRow>
-        </div>
-      </Div>
+      <ProblemCardParams props={props}/>
       <Button mode="outline"
               size="xl"
               onClick={
                 () => {
-                  console.log(props)
                   props.dispatch(fetchCurrentProblem(props.id));
-                  props.dispatch(changeActivePanel("currentProblem"))
+                  props.dispatch(changeActivePanel(props.redirectTo))
                 }
               }>
         Посмотреть детали
@@ -58,6 +33,7 @@ const ProblemCard = (props) => {
 }
 
 ProblemCard.propTypes = {
+  redirectTo: PropTypes.string.isRequired,
   photo: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   user: PropTypes.shape({

@@ -1,22 +1,20 @@
 import React from "react";
-import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
-import List from "@vkontakte/vkui/dist/components/List/List";
-import Panel from '@vkontakte/vkui/dist/components/Panel/Panel';
-import {Cell} from "@vkontakte/vkui";
-
-import "./Problems.css";
-import ProblemCard from "../components/problem-card/problem-card";
-import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
-import {changeActivePanel} from "../actions/actions";
 import {connect} from "react-redux";
+import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
+import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
+import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
+import {changeActivePanel} from "../../actions/actions";
+import List from "@vkontakte/vkui/dist/components/List/List";
+import {Cell} from "@vkontakte/vkui";
+import ProblemCard from "../../components/problem-card/problem-card";
 
-const Problems = (props) => {
+const ProgressExecutorProblems = (props) => {
   const {id, dispatch, problems} = props;
 
   return (
     <Panel id={id}>
-      <PanelHeader left={<PanelHeaderBack onClick={() => dispatch(changeActivePanel("customer"))}/>}>
-        Спиок доступных задач
+      <PanelHeader left={<PanelHeaderBack onClick={() => dispatch(changeActivePanel("executor"))}/>}>
+        Мои текущие задачи
       </PanelHeader>
       <List>
         {problems &&
@@ -29,11 +27,13 @@ const Problems = (props) => {
                            cost={problem.price}
                            rate={4.7}
                            user={{name: problem.author.name, surname: problem.author.lastName}}
+                           redirectTo={"currentExecutorProblem"}
 
               />}
           </Cell>)}
       </List>
-    </Panel>)
+    </Panel>
+  )
 };
 
 function mapStateToProps(state) {
@@ -41,4 +41,4 @@ function mapStateToProps(state) {
   return {problems};
 }
 
-export default connect(mapStateToProps)(Problems);
+export default connect(mapStateToProps)(ProgressExecutorProblems)

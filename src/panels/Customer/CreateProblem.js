@@ -14,8 +14,8 @@ import PropTypes from "prop-types";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import {connect} from "react-redux";
-import {changeActivePanel, createProblem} from "../actions/actions";
-import {competentions} from "../constants/state-constants";
+import {changeActivePanel, createProblem} from "../../actions/actions";
+import {competentions} from "../../constants/state-constants";
 
 const CreateProblem = (props) => {
   const [problem, setProblem] = useState({
