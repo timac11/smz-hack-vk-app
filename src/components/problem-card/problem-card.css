@@ -1,10 +1,16 @@
-.ux-problem-card__item {
+.ux-problem-card__item-container {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    height: 180px;
+    height: 200px;
     border: grey solid 1px;
     border-radius: 8px;
     background: white;
+}
+
+.ux-problem-card__item {
+    display: flex;
+    justify-content: space-between;
 }
 
 .ux-problem-card__info-photo {

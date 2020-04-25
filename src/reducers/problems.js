@@ -10,7 +10,7 @@ export default function baseState(state = INITIAL_STATE, action) {
     case PROBLEMS_ARE_LOADING:
       return {...state, isLoading: action.payload};
     case PROBLEMS_WERE_LOADED:
-      return {...state, problems: action.payload}
+      return {...state, problems: action.payload, isLoading: false};
     default:
       return state;
   }

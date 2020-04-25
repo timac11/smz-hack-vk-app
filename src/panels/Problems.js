@@ -10,42 +10,34 @@ import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/Pan
 import {changeActivePanel} from "../actions/actions";
 import {connect} from "react-redux";
 
-const Problems = ({id, go, fetchedUser, dispatch}) => {
+const Problems = (props) => {
+  const {id, dispatch, problems} = props;
+
   return (
     <Panel id={id}>
-      <PanelHeader left={<PanelHeaderBack onClick={() =>  dispatch(changeActivePanel("home"))} />}>
+      <PanelHeader left={<PanelHeaderBack onClick={() =>  dispatch(changeActivePanel("customer"))} />}>
         Спиок доступных задач
       </PanelHeader>
       <List>
-        <Cell className="ux-problems__main-cell">
-          {fetchedUser && <ProblemCard photo={fetchedUser.photo_200}
-                       description={"Some long description Some long description Some long description Some long description Some long description"}
-                       cost={5000}
-                       rate={4.7}
-                       user={{name: fetchedUser.first_name, surname: fetchedUser.last_name}}
+        {problems &&
+        problems
+          .map(problem => <Cell className="ux-problems__main-cell">
+            {
+              <ProblemCard photo={problem.author.photo}
+                          description={problem.description}
+                           cost={problem.price}
+                           rate={4.7}
+                           user={{name: problem.author.name, surname: problem.author.lastName}}
 
-          />}
-        </Cell>
-        <Cell className="ux-problems__main-cell">
-          {fetchedUser && <ProblemCard photo={fetchedUser.photo_200}
-                                       description={"Some long description Some long description Some long description Some long description Some long description"}
-                                       cost={5000}
-                                       rate={4.7}
-                                       user={{name: fetchedUser.first_name, surname: fetchedUser.last_name}}
-
-          />}
-        </Cell>
-        <Cell className="ux-problems__main-cell">
-          {fetchedUser && <ProblemCard photo={fetchedUser.photo_200}
-                                       description={"Some long description Some long description Some long description Some long description Some long description"}
-                                       cost={5000}
-                                       rate={4.7}
-                                       user={{name: fetchedUser.first_name, surname: fetchedUser.last_name}}
-
-          />}
-        </Cell>
+            />}
+          </Cell>)}
       </List>
     </Panel>)
+};
+
+function mapStateToProps(state) {
+  const problems = state.problems.problems;
+  return {problems};
 }
 
-export default connect(null)(Problems);
+export default connect(mapStateToProps)(Problems);

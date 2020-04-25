@@ -1,4 +1,4 @@
-import { Controller, Get, Request, Post, UseGuards } from '@nestjs/common';
+import {Controller, Get, Request, Post, UseGuards, Param} from '@nestjs/common';
 import { AuthService } from './auth/auth.service';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { UsersService } from './storage/service/user.service';
@@ -22,6 +22,7 @@ export class AppController {
     return this.authService.login(req.user);
   }
 
+  // PROBLEM ////////////////////////////////////////
   @Post("create-problem")
   async createProblem(@Request() req) {
     return await this.problemsService.saveByUserId(req.body.userId, req.body.problem)
@@ -32,6 +33,17 @@ export class AppController {
     return this.problemsService.getAllProblems();
   }
 
+  @Get("get-author-problems/:userId")
+  async getAuthorProblems(@Param() params) {
+    return this.problemsService.findProblemsByAuthorId(params.userId);
+  }
+
+  @Get("get-responsible-problems/:userId")
+  async getResponsibleProblems(@Param() params) {
+    return this.problemsService.findProblemsByResponsibleId(params.userId);
+  }
+
+  // USER /////////////////////////////////////////////
   @Post("authorize")
   async authorize(@Request() req) {
     return await this.usersService.save(req.body.user);

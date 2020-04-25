@@ -4,12 +4,13 @@ import View from '@vkontakte/vkui/dist/components/View/View';
 import ScreenSpinner from '@vkontakte/vkui/dist/components/ScreenSpinner/ScreenSpinner';
 import '@vkontakte/vkui/dist/vkui.css';
 
-import Home from './panels/Home';
+import Executor from './panels/Executor';
 import Problems from "./panels/Problems";
 import CreateProblem from "./panels/CreateProblem";
 import {connect} from "react-redux";
 import {changeActivePanel, userFetched} from "./actions/actions";
 import EnterPage from "./panels/EnterPage";
+import Customer from "./panels/Customer";
 
 const App = (props) => {
   const [popout, setPopout] = useState(<ScreenSpinner size='large'/>);
@@ -39,7 +40,8 @@ const App = (props) => {
   return (
     <View activePanel={props.activePanel} popout={popout}>
       <EnterPage id="enterPage"/>
-      <Home id='home' fetchedUser={props.user} go={go}/>
+      <Executor id='executor' fetchedUser={props.user} go={go}/>
+      <Customer id='customer' fetchedUser={props.user} go={go}/>
       <CreateProblem id='createProblem' go={go}/>
       <Problems id='problems' fetchedUser={props.user} go={go}/>
     </View>

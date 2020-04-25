@@ -18,9 +18,9 @@ import "./Home.css";
 import {connect} from "react-redux";
 import {changeActivePanel, fetchAllProblems} from "../actions/actions";
 
-const Home = ({id, go, loginedUser, dispatch}) => (
+const Executor = ({id, go, loginedUser, dispatch}) => (
   <Panel id={id}>
-    <PanelHeader>Информация</PanelHeader>
+    <PanelHeader>Кабинет исполнителя</PanelHeader>
     {loginedUser &&
     <Group title="User Data Fetched with VK Bridge">
       <Cell
@@ -71,7 +71,7 @@ const Home = ({id, go, loginedUser, dispatch}) => (
   </Panel>
 );
 
-Home.propTypes = {
+Executor.propTypes = {
   id: PropTypes.string.isRequired,
   go: PropTypes.func.isRequired,
   loginedUser: PropTypes.object.isRequired
@@ -82,4 +82,4 @@ function mapStateToProps(state) {
   return {loginedUser};
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Executor);

@@ -1,4 +1,10 @@
-import {ACTIVE_PANEL_CHANGE, AUTHORIZE, IS_AUTHORIZED, USER_FETCHED} from "../constants/state-constants";
+import {
+  ACTIVE_PANEL_CHANGE,
+  AUTHORIZE,
+  IS_AUTHORIZED,
+  PROBLEMS_WERE_LOADED,
+  USER_FETCHED
+} from "../constants/state-constants";
 import {get, post} from "../ApiProvider";
 
 export function changeActivePanel(payload) {
@@ -24,12 +30,11 @@ export function authorize(payload) {
       lastName: user.last_name,
       photo: user. photo_200,
       city: user.city.title,
-      inn: payload
     };
     return post("authorize", {
       user: userPayload
     }).then((result) => {
-      dispatch(isAuthorized(result.data));
+      dispatch(isAuthorized({user: result.data, role: payload}));
     });
   }
 }
@@ -48,11 +53,20 @@ export function createProblem(payload) {
 
 export function fetchAllProblems() {
   return (dispatch, getState) => {
-    return get("get-all-problems").then((result) => {
-
+    return get(`get-author-problems/${getState().user.loginedUser.id}`)
+      .then((result) => {
+        dispatch(problemsWereFetched(result.data))
+        console.log(result);
     })
   }
 
+}
+
+export function problemsWereFetched(payload) {
+  return {
+    type: PROBLEMS_WERE_LOADED,
+    payload
+  }
 }
 
 export function isAuthorized(payload) {

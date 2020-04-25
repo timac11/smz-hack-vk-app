@@ -18,11 +18,21 @@ export class ProblemService {
     });
   }
 
-  public async findProblemsByUserId(userId: string): Promise<Problem[]> {
+  public async findProblemsByAuthorId(userId: string): Promise<Problem[]> {
     const user: User = await this.userRepository.findOne({id: userId});
     return await this.problemRepository.find({
       where: {
         author: user
+      },
+      relations: ["author", "responsible"]
+    })
+  }
+
+  public async findProblemsByResponsibleId(userId: string): Promise<Problem[]> {
+    const user: User = await this.userRepository.findOne({id: userId});
+    return await this.problemRepository.find({
+      where: {
+        responsible: user
       },
       relations: ["author", "responsible"]
     })

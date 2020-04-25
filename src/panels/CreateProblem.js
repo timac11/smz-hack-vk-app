@@ -41,7 +41,7 @@ const CreateProblem = (props) => {
 
   return (
     <Panel id={props.id}>
-      <PanelHeader left={<PanelHeaderBack onClick={() => props.dispatch(changeActivePanel("home"))}/>}>
+      <PanelHeader left={<PanelHeaderBack onClick={() => props.dispatch(changeActivePanel("customer"))}/>}>
         Создать объявление
       </PanelHeader>
       <FormLayout>
