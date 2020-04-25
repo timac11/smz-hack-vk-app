@@ -4,6 +4,11 @@ export const AUTHORIZE = 'AUTHORIZE';
 export const IS_AUTHORIZED = 'IS_AUTHORIZED';
 
 
+export const LOAD_PROBLEMS = "LOAD_PROBLEMS";
+export const PROBLEMS_ARE_LOADING = "PROBLEMS_ARE_LOADING";
+export const PROBLEMS_WERE_LOADED = "PROBLEMS_WERE_LOADED";
+
+
 export const competentions = [
   {
     id: "Маникюр",

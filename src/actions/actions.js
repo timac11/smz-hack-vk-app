@@ -1,5 +1,5 @@
 import {ACTIVE_PANEL_CHANGE, AUTHORIZE, IS_AUTHORIZED, USER_FETCHED} from "../constants/state-constants";
-import {post} from "../ApiProvider";
+import {get, post} from "../ApiProvider";
 
 export function changeActivePanel(payload) {
   return {
@@ -44,6 +44,15 @@ export function createProblem(payload) {
       dispatch(changeActivePanel("home"))
     })
   }
+}
+
+export function fetchAllProblems() {
+  return (dispatch, getState) => {
+    return get("get-all-problems").then((result) => {
+
+    })
+  }
+
 }
 
 export function isAuthorized(payload) {

@@ -16,7 +16,7 @@ import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
 import "./Home.css";
 import {connect} from "react-redux";
-import {changeActivePanel} from "../actions/actions";
+import {changeActivePanel, fetchAllProblems} from "../actions/actions";
 
 
 const Home = ({id, go, loginedUser, dispatch}) => (
@@ -65,8 +65,8 @@ const Home = ({id, go, loginedUser, dispatch}) => (
       </Button>
       <Button className="ux-home__find-work-button"
               size="xl"
-              onClick={() => go("problems")}>
-        Найти работу
+              onClick={() => dispatch(fetchAllProblems()) && go("problems")}>
+        Посмотреть список объявлений
       </Button>
     </Div>
   </Panel>
