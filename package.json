@@ -24,6 +24,7 @@
     "@vkontakte/vk-bridge": "^2.1.8",
     "@vkontakte/vk-miniapps-deploy": "0.0.17",
     "@vkontakte/vkui": "^3.7.0",
+    "axios": "^0.19.2",
     "babel-eslint": "^10.1.0",
     "chalk": "^2.4.2",
     "core-js": "^3.6.5",

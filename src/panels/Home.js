@@ -19,16 +19,16 @@ import {connect} from "react-redux";
 import {changeActivePanel} from "../actions/actions";
 
 
-const Home = ({id, go, fetchedUser, dispatch}) => (
+const Home = ({id, go, loginedUser, dispatch}) => (
   <Panel id={id}>
     <PanelHeader>Информация</PanelHeader>
-    {fetchedUser &&
+    {loginedUser &&
     <Group title="User Data Fetched with VK Bridge">
       <Cell
-        before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
-        description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
+        before={loginedUser.photo ? <Avatar src={loginedUser.photo}/> : null}
+        description={loginedUser.city || ''}
       >
-        {`${fetchedUser.first_name} ${fetchedUser.last_name}`}
+        {`${loginedUser.name} ${loginedUser.lastName}`}
       </Cell>
     </Group>}
 
@@ -36,28 +36,35 @@ const Home = ({id, go, fetchedUser, dispatch}) => (
       <List>
         <Cell>
           <InfoRow header="Мои компетенции">
-            <Competentions data={["Machine Learning", "Wed", "Design"]}/>
+            <Competentions data={loginedUser.comptitions}/>
             <Button>Добавить</Button>
           </InfoRow>
         </Cell>
         <Cell>
-          <InfoRow header="Иой зарегистрированный доход">
-            50000 Р
+          <InfoRow header="ИНН">
+            {loginedUser.inn}
+          </InfoRow>
+        </Cell>
+        <Cell>
+          <InfoRow header="Мой зарегистрированный доход">
+            {loginedUser.income} P
           </InfoRow>
         </Cell>
         <Cell>
           <InfoRow header="Рейтинг">
-            4.1 / 5
-            <Progress title={4.1} value={82.1}/>
+            {loginedUser.rating}
+            <Progress title={loginedUser.rating} value={loginedUser.rating * 20}/>
           </InfoRow>
         </Cell>
       </List>
     </Group>
     <Div className="ux-home__footer">
-      <Button onClick={() => dispatch(changeActivePanel("createProblem"))}>
+      <Button size="xl"
+              onClick={() => dispatch(changeActivePanel("createProblem"))}>
         Создать объявление
       </Button>
       <Button className="ux-home__find-work-button"
+              size="xl"
               onClick={() => go("problems")}>
         Найти работу
       </Button>
@@ -68,14 +75,12 @@ const Home = ({id, go, fetchedUser, dispatch}) => (
 Home.propTypes = {
   id: PropTypes.string.isRequired,
   go: PropTypes.func.isRequired,
-  fetchedUser: PropTypes.shape({
-    photo_200: PropTypes.string,
-    first_name: PropTypes.string,
-    last_name: PropTypes.string,
-    city: PropTypes.shape({
-      title: PropTypes.string,
-    }),
-  }),
+  loginedUser: PropTypes.object.isRequired
 };
 
-export default connect(null)(Home);
+function mapStateToProps(state) {
+  const loginedUser = state.user.loginedUser;
+  return {loginedUser};
+}
+
+export default connect(mapStateToProps)(Home);

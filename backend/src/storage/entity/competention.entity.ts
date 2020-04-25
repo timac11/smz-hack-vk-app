@@ -1,7 +1,8 @@
-import {Column} from "typeorm";
+import {Column, Entity, PrimaryColumn} from "typeorm";
 
+@Entity("competentions")
 export class Competention {
-  @Column()
+  @PrimaryColumn()
   public id: string;
 
   @Column()

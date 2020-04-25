@@ -5,6 +5,7 @@ import { UsersService } from './service/user.service';
 import {Competention} from "./entity/competention.entity";
 import {Problem} from "./entity/problem.entity";
 import {ProblemService} from "./service/problem.service";
+import * as path from "path";
 
 @Module({
   imports: [
@@ -15,16 +16,12 @@ import {ProblemService} from "./service/problem.service";
       username: 'postgres',
       password: 'postgres',
       database: 'SmzHack',
-      entities: [
-        User,
-        Competention,
-        Problem
-      ],
+      entities: [`${path.join(__dirname, "..")}/**/*.entity.{ts,js}`],
       synchronize: true,
     }),
     TypeOrmModule.forFeature([
-      User,
       Competention,
+      User,
       Problem
     ])
   ],

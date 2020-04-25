@@ -1,9 +1,9 @@
-import {Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinTable, ManyToMany, PrimaryColumn} from "typeorm";
 import {Competention} from "./competention.entity";
 
 @Entity("users")
 export class User {
-  @Column()
+  @PrimaryColumn()
   public id: string;
 
   @Column()
@@ -18,13 +18,13 @@ export class User {
   @Column()
   public city: string;
 
-  @Column()
+  @Column({default: 0})
   public rating: number;
 
-  @Column()
+  @Column({default: 0})
   public income: number;
 
-  @Column()
+  @Column({nullable: true})
   public inn: string;
 
   @ManyToMany(type => Competention)

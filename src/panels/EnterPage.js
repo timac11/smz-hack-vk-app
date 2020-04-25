@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Panel from "@vkontakte/vkui/dist/components/Panel/Panel";
 import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
 import FormLayout from "@vkontakte/vkui/dist/components/FormLayout/FormLayout";
@@ -10,6 +10,8 @@ import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import {authorize} from "../actions/actions";
 
 const EnterPage = ({id, dispatch}) => {
+  const [inn, setInn] = useState("");
+
   return (
     <Panel id={id}>
       <PanelHeader>
@@ -17,12 +19,17 @@ const EnterPage = ({id, dispatch}) => {
       </PanelHeader>
       <FormLayout>
         <FormLayoutGroup top="ИНН">
-          <Input type="number"/>
+          <Input type="number"
+                 value={inn}
+                 onChange={(e) => {
+                   setInn(e.target.value);
+                 }}
+          />
         </FormLayoutGroup>
       </FormLayout>
       <Div>
         <Button size="xl"
-          onClick={() => dispatch(authorize())}>
+                onClick={() => dispatch(authorize(inn))}>
           Вход в систему
         </Button>
       </Div>

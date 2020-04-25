@@ -1,6 +1,7 @@
-import {Column, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./user.entity";
 
+@Entity("problems")
 export class Problem {
   @PrimaryGeneratedColumn()
   public id: string;
