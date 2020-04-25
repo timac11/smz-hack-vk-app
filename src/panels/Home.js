@@ -18,7 +18,6 @@ import "./Home.css";
 import {connect} from "react-redux";
 import {changeActivePanel, fetchAllProblems} from "../actions/actions";
 
-
 const Home = ({id, go, loginedUser, dispatch}) => (
   <Panel id={id}>
     <PanelHeader>Информация</PanelHeader>
