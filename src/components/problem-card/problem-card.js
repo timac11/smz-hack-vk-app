@@ -17,9 +17,12 @@ const ProblemCard = (props) => {
       <Div className="ux-problem-card__item">
         <Div className="ux-problem-card__info-photo">
           <Avatar src={props.photo}/>
-          <div>
-            {props.user.name} {props.user.surname}
-          </div>
+          <span>
+            {props.user.name}
+          </span>
+          <span>
+             {props.user.surname}
+          </span>
         </Div>
         <div className="ux-problem-card__info-main">
           <Group header={<Header mode="secondary">Описание</Header>}>
