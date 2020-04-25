@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import {User} from "./user.entity";
 
 @Entity("problems")
@@ -15,12 +15,10 @@ export class Problem {
   @Column()
   public price: string;
 
-  @OneToOne(type => User)
-  @JoinColumn()
+  @ManyToOne(type => User)
   public author: User;
 
-  @OneToOne(type => User)
-  @JoinColumn()
+  @ManyToOne(type => User)
   public responsible: User;
 
   @Column()

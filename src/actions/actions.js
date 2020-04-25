@@ -34,6 +34,7 @@ export function authorize(payload) {
     return post("authorize", {
       user: userPayload
     }).then((result) => {
+      console.log(result)
       dispatch(isAuthorized({user: result.data, role: payload}));
     });
   }
