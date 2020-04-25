@@ -3,12 +3,14 @@ import { AuthService } from './auth/auth.service';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { UsersService } from './storage/service/user.service';
 import {ProblemService} from "./storage/service/problem.service";
+import {HashConnectService} from "./hash-connect/hash-connect.service";
 
 @Controller()
 export class AppController {
   constructor(private authService: AuthService,
               private usersService: UsersService,
-              private problemsService: ProblemService) {}
+              private problemsService: ProblemService,
+              private hashConnectService: HashConnectService) {}
 
   //TODO add validation for user fields
   @Post("register")
