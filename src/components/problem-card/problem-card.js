@@ -10,6 +10,8 @@ import Group from "@vkontakte/vkui/dist/components/Group/Group";
 import Header from "@vkontakte/vkui/dist/components/Header/Header";
 import InfoRow from "@vkontakte/vkui/dist/components/InfoRow/InfoRow";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
+import {connect} from "react-redux";
+import {changeActivePanel, fetchCurrentProblem} from "../../actions/actions";
 
 const ProblemCard = (props) => {
   return (
@@ -40,7 +42,15 @@ const ProblemCard = (props) => {
           </InfoRow>
         </div>
       </Div>
-      <Button size="xl">
+      <Button mode="outline"
+              size="xl"
+              onClick={
+                () => {
+                  console.log(props)
+                  props.dispatch(fetchCurrentProblem(props.id));
+                  props.dispatch(changeActivePanel("currentProblem"))
+                }
+              }>
         Посмотреть детали
       </Button>
     </Div>
@@ -49,6 +59,7 @@ const ProblemCard = (props) => {
 
 ProblemCard.propTypes = {
   photo: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   user: PropTypes.shape({
     name: PropTypes.string.isRequired,
     surname: PropTypes.string.isRequired
@@ -59,4 +70,4 @@ ProblemCard.propTypes = {
   rate: PropTypes.number.isRequired
 };
 
-export default ProblemCard;
+export default connect()(ProblemCard);

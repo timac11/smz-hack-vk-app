@@ -9,6 +9,9 @@ export const PROBLEMS_ARE_LOADING = "PROBLEMS_ARE_LOADING";
 export const PROBLEMS_WERE_LOADED = "PROBLEMS_WERE_LOADED";
 
 
+export const LOAD_CURRENT_PROBLEM = "LOAD_CURRENT_PROBLEM";
+export const CURRENT_PROBLEM_WAS_LOADED = "CURRENT_PROBLEM_WAS_LOADED";
+
 export const competentions = [
   {
     id: "Маникюр",

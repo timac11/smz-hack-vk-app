@@ -38,6 +38,10 @@ export class ProblemService {
     })
   }
 
+  public async findProblemById(id: string): Promise<Problem> {
+    return await this.problemRepository.findOne({id});
+  }
+
   public async getAllProblems(): Promise<Problem[]> {
     return this.problemRepository.find({relations: ["author", "responsible"]});
   }

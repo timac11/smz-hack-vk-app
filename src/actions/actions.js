@@ -1,6 +1,6 @@
 import {
   ACTIVE_PANEL_CHANGE,
-  AUTHORIZE,
+  AUTHORIZE, CURRENT_PROBLEM_WAS_LOADED,
   IS_AUTHORIZED,
   PROBLEMS_WERE_LOADED,
   USER_FETCHED
@@ -47,7 +47,7 @@ export function createProblem(payload) {
       userId,
       problem: payload
     }).then((result) => {
-      dispatch(changeActivePanel("home"))
+      dispatch(changeActivePanel("customer"))
     })
   }
 }
@@ -60,7 +60,22 @@ export function fetchAllProblems() {
         console.log(result);
     })
   }
+}
 
+export function fetchCurrentProblem(id) {
+  return (dispatch, getState) => {
+    return get(`get-problem/${id}`)
+      .then((result) => {
+        dispatch(currentProblemWasLoaded(result.data));
+      })
+  }
+}
+
+export function currentProblemWasLoaded(payload) {
+  return {
+    type: CURRENT_PROBLEM_WAS_LOADED,
+    payload
+  }
 }
 
 export function problemsWereFetched(payload) {

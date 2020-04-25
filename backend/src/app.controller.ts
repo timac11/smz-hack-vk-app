@@ -43,6 +43,11 @@ export class AppController {
     return this.problemsService.findProblemsByResponsibleId(params.userId);
   }
 
+  @Get("get-problem/:id")
+  async getProblemById(@Param() params) {
+    return this.problemsService.findProblemById(params.id);
+  }
+
   // USER /////////////////////////////////////////////
   @Post("authorize")
   async authorize(@Request() req) {

@@ -11,6 +11,7 @@ import {connect} from "react-redux";
 import {changeActivePanel, userFetched} from "./actions/actions";
 import EnterPage from "./panels/EnterPage";
 import Customer from "./panels/Customer";
+import CurrentProblem from "./panels/CurrentProblem";
 
 const App = (props) => {
   const [popout, setPopout] = useState(<ScreenSpinner size='large'/>);
@@ -42,6 +43,7 @@ const App = (props) => {
       <EnterPage id="enterPage"/>
       <Executor id='executor' fetchedUser={props.user} go={go}/>
       <Customer id='customer' fetchedUser={props.user} go={go}/>
+      <CurrentProblem id='currentProblem'/>
       <CreateProblem id='createProblem' go={go}/>
       <Problems id='problems' fetchedUser={props.user} go={go}/>
     </View>

@@ -15,7 +15,7 @@ const Problems = (props) => {
 
   return (
     <Panel id={id}>
-      <PanelHeader left={<PanelHeaderBack onClick={() =>  dispatch(changeActivePanel("customer"))} />}>
+      <PanelHeader left={<PanelHeaderBack onClick={() => dispatch(changeActivePanel("customer"))}/>}>
         Спиок доступных задач
       </PanelHeader>
       <List>
@@ -24,12 +24,13 @@ const Problems = (props) => {
           .map(problem => <Cell className="ux-problems__main-cell">
             {
               <ProblemCard photo={problem.author.photo}
-                          description={problem.description}
+                           id={problem.id}
+                           description={problem.description}
                            cost={problem.price}
                            rate={4.7}
                            user={{name: problem.author.name, surname: problem.author.lastName}}
 
-            />}
+              />}
           </Cell>)}
       </List>
     </Panel>)
