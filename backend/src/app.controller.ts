@@ -24,7 +24,12 @@ export class AppController {
 
   @Post("create-problem")
   async createProblem(@Request() req) {
+    return await this.problemsService.saveByUserId(req.body.userId, req.body.problem)
+  }
 
+  @Get("get-all-problems")
+  async getAllProblems() {
+    return this.problemsService.getAllProblems();
   }
 
   @Post("authorize")

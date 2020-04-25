@@ -12,8 +12,9 @@ export class ProblemService {
 
   public async saveByUserId(userId: string, problem: Problem) {
     const user: User = await this.userRepository.findOne({id: userId});
+    console.log(user);
     await this.problemRepository.save({
-      ...problem, user: user
+      ...problem, author: user
     });
   }
 
@@ -28,6 +29,6 @@ export class ProblemService {
   }
 
   public async getAllProblems(): Promise<Problem[]> {
-    return this.problemRepository.find();
+    return this.problemRepository.find({relations: ["author", "responsible"]});
   }
 }

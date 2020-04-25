@@ -34,6 +34,18 @@ export function authorize(payload) {
   }
 }
 
+export function createProblem(payload) {
+  return (dispatch, getState) => {
+    const userId = getState().user.user.id;
+    return post("create-problem", {
+      userId,
+      problem: payload
+    }).then((result) => {
+      dispatch(changeActivePanel("home"))
+    })
+  }
+}
+
 export function isAuthorized(payload) {
   return {
     type: IS_AUTHORIZED,
