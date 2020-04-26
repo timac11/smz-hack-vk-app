@@ -16,7 +16,7 @@ export function post(url, data) {
     });
 }
 
-export function getPaymentLink(price = 100) {
+export function getPaymentLink(price = 15000 * 1.09) {
     return axios.post(API_URL + "create-payment-link", {
         price,
         pageParams: {

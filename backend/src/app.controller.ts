@@ -84,7 +84,6 @@ export class AppController {
     const ruid = uuid();
     const pageParams = req.body['pageParams'];
     const price = req.body['price'];
-    const sign = crypto.createSign('SHA256');
 
     const config = {
       username: "startblock",
@@ -126,6 +125,7 @@ export class AppController {
 
     function createSignature(method, uri, data) {
       const dataToSign = `${method}\n${uri}\n${data}`;
+      const sign = crypto.createSign('SHA256');
       sign.write(dataToSign);
       sign.end();
 
@@ -137,7 +137,7 @@ export class AppController {
     var body = {
       "action": "purchase",
       "amount" : {
-        "amount" : price,
+        "amount" : Math.floor(price),
         "currency" : "RUB"
       },
       "externalId" : `${ruid}`,
@@ -152,7 +152,9 @@ export class AppController {
       },
       "pageParameters": pageParams,
       "registerRecurring" : false
-    }
+    };
+
+    console.log(body)
 
     const siteId = config.siteId
     var raw = JSON.stringify(body);

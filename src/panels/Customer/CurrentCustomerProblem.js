@@ -42,12 +42,12 @@ const CurrentCustomerProblem = (props) => {
       {
         !showUsers &&
         problem &&
-        problem.status === "completed" &&
+        problem.status === "inProgress" &&
         <Div>
-          <Div className="ux-current-problem__suggest-container">Работа завершена!</Div>
+          <Div className="ux-current-problem__suggest-container">Статус: в прогрессе</Div>
           <Button size="xl"
                   onClick={() => {getPaymentLink().then((result) => {window.open(result.data)})}}>
-            Оплатить
+            Оплатить (9 % комиссия)
           </Button>
         </Div>
       }

@@ -27,13 +27,17 @@ const UserCard = (props) => {
         <div className="ux-user-card__info-main">
           <Group header={<Header mode="secondary">Описание</Header>}>
             <Div>
-              Находится у вас в рузьях
+              Находится у вас в друзьях
             </Div>
           </Group>
         </div>
         <div className="ux-user-card__info-rate">
           <InfoRow header="Рейтинг">
             5.0
+          </InfoRow>
+          <InfoRow header="Доход">
+            {user.id !== "99230836" ? Math.floor(Math.random() * 50000) :
+              <div>Не в системе</div>}
           </InfoRow>
         </div>
       </Div>
