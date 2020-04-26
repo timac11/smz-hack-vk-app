@@ -15,6 +15,7 @@ import ExecutorProblems from "./panels/Executor/ExecutorProblems";
 import CurrentCustomerProblem from "./panels/Customer/CurrentCustomerProblem";
 import CurrentExecutorProblem from "./panels/Executor/CurrentExecutorProblem";
 import ProgressExecutorProblems from "./panels/Executor/ProgressExecutorProblems";
+import SuggestionExecutorProblems from "./panels/Executor/SuggestionExecutorProblems";
 
 const App = (props) => {
   const [popout, setPopout] = useState(<ScreenSpinner size='large'/>);
@@ -48,6 +49,7 @@ const App = (props) => {
       <ExecutorProblems id='executorProblems'/>
       <CurrentExecutorProblem id='currentExecutorProblem'/>
       <ProgressExecutorProblems id='progressExecutorProblems'/>
+      <SuggestionExecutorProblems id='suggestExecutorProblems'/>
       <Customer id='customer' fetchedUser={props.user} go={go}/>
       <CurrentCustomerProblem id='currentCustomerProblem'/>
       <CreateProblem id='createProblem' go={go}/>

@@ -21,6 +21,9 @@ export class Problem {
   @ManyToOne(type => User)
   public responsible: User;
 
+  @ManyToOne(type => User)
+  public suggest: User;
+
   @Column({default: "init"})
   public status: string;
 

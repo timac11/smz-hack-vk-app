@@ -2,13 +2,9 @@ import React from "react";
 
 import "./problem-card.css";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
-import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
 import PropTypes from "prop-types";
 
 import "./problem-card.css";
-import Group from "@vkontakte/vkui/dist/components/Group/Group";
-import Header from "@vkontakte/vkui/dist/components/Header/Header";
-import InfoRow from "@vkontakte/vkui/dist/components/InfoRow/InfoRow";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import {connect} from "react-redux";
 import {changeActivePanel, fetchCurrentProblem} from "../../actions/actions";
@@ -30,7 +26,7 @@ const ProblemCard = (props) => {
       </Button>
     </Div>
   )
-}
+};
 
 ProblemCard.propTypes = {
   redirectTo: PropTypes.string.isRequired,

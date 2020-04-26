@@ -8,12 +8,13 @@ import Button from "@vkontakte/vkui/dist/components/Button/Button";
 import {changeActivePanel, fetchAllProblems} from "../../actions/actions";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 import {connect} from "react-redux";
+import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
 
 const Customer = (props) => {
   const {id, loginedUser, go, dispatch} = props;
   return (
     <Panel id={id}>
-      <PanelHeader>Кабинет заказчика</PanelHeader>
+      <PanelHeader left={<PanelHeaderBack onClick={() => dispatch(changeActivePanel("enterPage"))}/>}>Кабинет заказчика</PanelHeader>
       {
         loginedUser &&
         <Group title="User Data Fetched with VK Bridge">

@@ -25,7 +25,7 @@ const ProblemParams = ({problem}) => {
         </Cell>
         <Cell>
           <InfoRow header="Дата выполнения">
-            {problem.dueDate}
+            {new Date(problem.dueDate).toLocaleDateString()}
           </InfoRow>
         </Cell>
         <Cell>

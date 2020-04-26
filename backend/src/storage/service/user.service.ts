@@ -21,11 +21,11 @@ export class UsersService {
     return result;
   }
 
-  public async getUserByUserId(userId: string): Promise<User> {
-    return this.userRepository.findOne({id: userId});
+  public async getAllUsers(): Promise<User[]> {
+    return await this.userRepository.find({relations: ["comptitions"]})
   }
 
-  public async getAllUsers(): Promise<User[]> {
-    return this.userRepository.find();
+  public async getUserByUserId(userId: string): Promise<User> {
+    return this.userRepository.findOne({id: userId});
   }
 }

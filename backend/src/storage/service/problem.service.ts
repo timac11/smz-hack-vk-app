@@ -46,10 +46,67 @@ export class ProblemService {
   }
 
   public async findProblemById(id: string): Promise<Problem> {
-    return await this.problemRepository.findOne({id});
+    return await this.problemRepository.findOne({id}, {relations: ["author", "responsible", "suggest"]});
   }
 
   public async getAllProblems(): Promise<Problem[]> {
-    return this.problemRepository.find({relations: ["author", "responsible"]});
+    return this.problemRepository.find({relations: ["author", "responsible", "suggest"]});
+  }
+
+  public async getSuggestionsForUser(userId: string): Promise<Problem[]> {
+    const user = await this.userRepository.findOne({id: userId});
+    return await this.problemRepository.find({
+      where: {
+        suggest: user,
+        status: "suggest"
+      },
+      relations: ["suggest", "author", "responsible"]
+    })
+  }
+
+  public async getInProgressForUser(userId: string): Promise<Problem[]> {
+    const user = await this.userRepository.findOne({id: userId});
+    return await this.problemRepository.find({
+      where: {
+        user,
+        status: "inProgress"
+      }
+    })
+  }
+
+  public async suggestProblemForUser(problemId: string, userId: string): Promise<Problem> {
+    const user = await this.userRepository.findOne({where: {id: userId}});
+    const problem = await this.findProblemById(problemId);
+    problem.suggest = user;
+    problem.status = "suggest";
+    await this.problemRepository.save(problem);
+    return await this.findProblemById(problemId);
+  }
+
+  public async getProblemToWork(problemId: string, userId: string): Promise<Problem> {
+    const user = await this.userRepository.findOne({where: {id: userId}});
+    const problem = await this.findProblemById(problemId);
+    problem.suggest = null;
+    problem.responsible = user;
+    problem.status = "inProgress";
+    await this.problemRepository.save(problem);
+    return await this.findProblemById(problemId);
+  }
+
+  public async completeProblem(problemId: string): Promise<Problem> {
+    const problem = await this.findProblemById(problemId);
+    problem.status = "completed";
+    await this.problemRepository.save(problem);
+    return await this.findProblemById(problemId);
+  }
+
+  public async getCompletedForUser(userId: string): Promise<Problem[]> {
+    const user = await this.userRepository.findOne({id: userId});
+    return await this.problemRepository.find({
+      where: {
+        user,
+        status: "completed"
+      }
+    })
   }
 }

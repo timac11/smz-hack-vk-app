@@ -1,7 +1,7 @@
 import React from "react";
 import PanelHeader from "@vkontakte/vkui/dist/components/PanelHeader/PanelHeader";
 import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
-import {changeActivePanel, toBeResponsibleForProblem} from "../../actions/actions";
+import {changeActivePanel, completeProblem, toBeResponsibleForProblem} from "../../actions/actions";
 import Div from "@vkontakte/vkui/dist/es6/components/Div/Div";
 import ReactAvatar from "react-avatar";
 import ProblemParams from "../../components/problem-params/problem-params";
@@ -30,9 +30,12 @@ const CurrentExecutorProblem = (props) => {
     {
       problem && problem.responsible && problem.responsible.id === loginedUser.id &&
       <Button size="xl"
-              onClick={() => props.dispatch(toBeResponsibleForProblem())}>
-        Завершить работу работу
+              onClick={() => props.dispatch(completeProblem(problem.id))}>
+        Завершить работу
       </Button>
+    }
+    {
+      problem && problem.status === "completed" && <Div className="ux-current-problem__suggest-container">Работа завершена!</Div>
     }
   </Panel>
 };

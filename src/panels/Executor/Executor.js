@@ -11,20 +11,21 @@ import InfoRow from "@vkontakte/vkui/dist/components/InfoRow/InfoRow";
 import Competentions from "../../components/competitions/competentions";
 import Avatar from "@vkontakte/vkui/dist/components/Avatar/Avatar";
 import Button from "@vkontakte/vkui/dist/components/Button/Button";
-import Progress from "@vkontakte/vkui/dist/components/Progress/Progress";
 import Div from "@vkontakte/vkui/dist/components/Div/Div";
 
 import "../Customer/Home.css";
 import {connect} from "react-redux";
 import {
+  changeActivePanel,
   fetchAllAvailableExecutorProblems,
-  fetchAllProblems,
-  fetchAllProgressExecutorProblems
+  fetchAllProgressExecutorProblems, getAllSuggestions
 } from "../../actions/actions";
 import Checkbox from "@vkontakte/vkui/dist/components/Checkbox/Checkbox";
 import {competentions} from "../../constants/state-constants";
 
 import "./Executor.css";
+import Input from "@vkontakte/vkui/dist/components/Input/Input";
+import PanelHeaderBack from "@vkontakte/vkui/dist/components/PanelHeaderBack/PanelHeaderBack";
 
 export const myCompetitions = [
   {
@@ -41,7 +42,7 @@ const Executor = ({id, go, loginedUser, dispatch}) => {
   const [edit, setEdit] = useState(false);
 
   return <Panel id={id}>
-    <PanelHeader>Кабинет исполнителя</PanelHeader>
+    <PanelHeader left={<PanelHeaderBack onClick={() => dispatch(changeActivePanel("enterPage"))}/>}>Кабинет исполнителя</PanelHeader>
     {loginedUser &&
     <Group title="User Data Fetched with VK Bridge">
       <Cell
@@ -73,19 +74,18 @@ const Executor = ({id, go, loginedUser, dispatch}) => {
           </InfoRow>
         </Cell>
         <Cell>
-          <InfoRow header="ИНН">
-            {loginedUser.inn || <Button>Зарегистрироваться</Button>}
-          </InfoRow>
-        </Cell>
-        <Cell>
           <InfoRow header="Мой зарегистрированный доход">
             {loginedUser.income} P
           </InfoRow>
         </Cell>
         <Cell>
-          <InfoRow header="Рейтинг">
-            {loginedUser.rating}
-            <Progress title={loginedUser.rating} value={loginedUser.rating * 20}/>
+          <InfoRow header="ИНН">
+            <Input type="text"
+                   className="ux-executor__inn-field"
+                   value={loginedUser.inn}/>
+            <Button size="xl"
+                    mode="secondary"
+            >Сохранить</Button>
           </InfoRow>
         </Cell>
       </List>
@@ -100,6 +100,11 @@ const Executor = ({id, go, loginedUser, dispatch}) => {
               size="xl"
               onClick={() => dispatch(fetchAllProgressExecutorProblems()) && go("progressExecutorProblems")}>
         Мои текущие задачи
+      </Button>
+      <Button className="ux-home__find-work-button"
+              size="xl"
+              onClick={() => dispatch(getAllSuggestions()) && go("suggestExecutorProblems")}>
+        Предложения
       </Button>
     </Div>
   </Panel>

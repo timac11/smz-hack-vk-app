@@ -3,7 +3,7 @@ import {
   AUTHORIZE, CURRENT_PROBLEM_WAS_LOADED,
   IS_AUTHORIZED,
   PROBLEMS_WERE_LOADED,
-  USER_FETCHED
+  USER_FETCHED, USERS_WERE_LOADED
 } from "../constants/state-constants";
 import {get, post} from "../ApiProvider";
 
@@ -34,9 +34,17 @@ export function authorize(payload) {
     return post("authorize", {
       user: userPayload
     }).then((result) => {
-      console.log(result)
+      console.log(result);
       dispatch(isAuthorized({user: result.data, role: payload}));
     });
+  }
+}
+
+export function fetchAllUsers() {
+  return (dispatch) => {
+    return get("get-all-users", {data: {tr: "hui"}}).then((result) => {
+      dispatch(usersWereFetched(result.data));
+    })
   }
 }
 
@@ -93,11 +101,40 @@ export function toBeResponsibleForProblem() {
   }
 }
 
+export function completeProblem(id) {
+  return (dispatch, getState) => {
+    return get(`complete-problem/${id}`)
+      .then((result) => {
+        dispatch(currentProblemWasLoaded(result.data));
+      })
+  }
+}
+
 export function fetchCurrentProblem(id) {
   return (dispatch, getState) => {
     return get(`get-problem/${id}`)
       .then((result) => {
         dispatch(currentProblemWasLoaded(result.data));
+      })
+  }
+}
+
+export function suggestProblem(payload) {
+  return (dispatch, getState) => {
+    return post("suggest-problem", {
+      userId: payload,
+      problemId: getState().problems.currentProblem.id
+    }).then((result) => {
+      dispatch(currentProblemWasLoaded(result.data));
+    })
+  }
+}
+
+export function getAllSuggestions() {
+  return (dispatch, getState) => {
+    return get(`get-suggest-problems/${getState().user.loginedUser.id}`)
+      .then((result) => {
+        dispatch(problemsWereFetched(result.data));
       })
   }
 }
@@ -112,6 +149,13 @@ export function currentProblemWasLoaded(payload) {
 export function problemsWereFetched(payload) {
   return {
     type: PROBLEMS_WERE_LOADED,
+    payload
+  }
+}
+
+export function usersWereFetched(payload) {
+  return {
+    type: USERS_WERE_LOADED,
     payload
   }
 }
